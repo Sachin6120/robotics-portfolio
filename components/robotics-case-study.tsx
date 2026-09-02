@@ -9,10 +9,10 @@ import { SystemArchitecture } from '@/components/system-architecture'
 import { Separator } from '@/components/ui/separator'
 
 const metrics = [
-  { value: '5', label: 'Workspace Positions', detail: 'Position generalization' },
-  { value: '30 mm', label: 'Object Width', detail: 'Parallel-jaw validation' },
-  { value: '1.00', label: 'Cartesian Path Fraction', detail: 'Validated descent runs' },
-  { value: 'ROS 2', label: 'Integrated Stack', detail: 'Perception → planning → control' },
+  { value: '4', label: 'Validated Pose Cases', detail: 'Scene-A + D1–D3 · all PASS' },
+  { value: '≤1.613 mm', label: 'Worst Perception Error', detail: 'Recorded position error' },
+  { value: '1.0000', label: 'Cartesian Descent Fraction', detail: 'All four validated cases' },
+  { value: '105 / 105', label: 'Tests Passing', detail: '0 failures · errors · skips' },
 ]
 
 export function RoboticsCaseStudy() {
@@ -47,8 +47,11 @@ export function RoboticsCaseStudy() {
             <p className="font-mono text-xs uppercase tracking-[0.18em] text-primary">05 / Validation</p>
             <h2 className="text-3xl font-semibold tracking-tight md:text-5xl">Validated through repeatable experiments.</h2>
             <p className="max-w-2xl leading-relaxed text-muted-foreground">
-              The project uses controlled simulation cases and preserved evidence to evaluate whether perception-driven manipulation remains repeatable as the object&apos;s position changes around the nominal pick pose.
+              Controlled simulation experiments verify actual object behavior rather than trusting controller completion alone. Scene-A (0, 0 mm / 0°), D1 (+30, +30 mm / +30°), D2 (−30, −30 mm / −30°), and D3 (+30, −30 mm / +45°) all pass in the published Stage-2 baseline.
             </p>
+            <a href="https://github.com/Sachin6120/ur5e-robotiq-pickplace/releases/tag/stage2-pose-generalization-pass" target="_blank" rel="noreferrer" className="w-fit font-mono text-xs uppercase tracking-[0.13em] text-primary hover:text-foreground">
+              View Stage-2 release <ArrowUpRight className="ml-1 inline size-3" />
+            </a>
           </div>
 
           <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">

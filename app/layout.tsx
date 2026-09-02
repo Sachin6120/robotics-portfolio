@@ -7,9 +7,9 @@ const geist = Geist({ subsets: ['latin'], variable: '--font-geist-sans' })
 const geistMono = Geist_Mono({ subsets: ['latin'], variable: '--font-geist-mono' })
 
 export const metadata: Metadata = {
-  title: 'Perception-Driven UR5e Manipulation | Sachin Kumar Pal',
+  title: 'Perception-Guided UR5e Simulation | Sachin Kumar Pal',
   description:
-    'Perception-driven UR5e manipulation case study using ROS 2 Jazzy, RGB-D object localization, deterministic pregrasp selection, MoveIt 2, ros2_control, and Gazebo Harmonic.',
+    'Simulation-only UR5e manipulation case study using ROS 2 Jazzy, RGB-D XYZ and axial-yaw estimation, TF2, MoveIt 2, PlanningScene, ros2_control, and Gazebo Harmonic.',
   applicationName: 'Sachin Kumar Pal Robotics Portfolio',
   authors: [{ name: 'Sachin Kumar Pal' }],
   creator: 'Sachin Kumar Pal',
