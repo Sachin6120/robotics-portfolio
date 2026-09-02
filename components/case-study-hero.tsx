@@ -6,10 +6,10 @@ import { Button } from '@/components/ui/button'
 const tech = ['ROS 2 Jazzy', 'Gazebo Harmonic', 'MoveIt 2', 'ros2_control', 'C++', 'Python', 'OpenCV', 'TF2']
 
 const snapshot = [
-  ['ROBOT', 'UR5e'],
-  ['PERCEPTION', 'RGB-D Localization'],
-  ['PLANNING', 'MoveIt 2'],
-  ['EXECUTION', 'ros2_control'],
+  ['ROBOT', 'UR5e / Gazebo'],
+  ['PERCEPTION', 'RGB-D XYZ + Yaw'],
+  ['PLANNING', 'MoveIt 2 / IK'],
+  ['LIFECYCLE', 'PlanningScene'],
 ]
 
 export function CaseStudyHero() {
@@ -18,18 +18,18 @@ export function CaseStudyHero() {
       <div className="relative flex flex-col items-start gap-7">
         <div className="tech-pill flex items-center gap-3 font-mono text-xs uppercase tracking-[0.18em]">
           <span className="size-2 rounded-full bg-primary shadow-[0_0_12px_var(--primary)]" />
-          Perception-Driven Robotic Manipulation
+          Perception-Guided Manipulation in Simulation
         </div>
 
         <div className="flex flex-col gap-5">
           <h1 className="heading-gradient max-w-3xl text-balance font-sans text-4xl font-semibold leading-[1.05] tracking-[-0.04em] md:text-6xl lg:text-7xl">
-            Perception-Driven Pick &amp; Place with UR5e
+            Perception-Guided UR5e Pick &amp; Place in Simulation
           </h1>
           <p className="max-w-2xl text-pretty text-base font-medium leading-relaxed text-foreground/90 md:text-lg">
-            RGB-D object localization, deterministic pregrasp selection, MoveIt 2 motion planning, and quantitative simulation validation in ROS 2.
+            RGB-D object pose estimation, deterministic pregrasp selection, MoveIt 2 motion planning, and quantitative simulation validation in ROS 2.
           </p>
           <p className="max-w-2xl text-pretty text-sm leading-relaxed text-muted-foreground md:text-base">
-            A complete manipulation pipeline that converts RGB-D observations into robot targets, selects repeatable pregrasp configurations, executes grasp and transfer motions, and validates the resulting object behavior in Gazebo.
+            The pipeline estimates object XYZ and axial yaw, transforms the perceived pose into the world frame with TF2, selects a repeatable pregrasp through MoveIt&apos;s configured IK, and validates the resulting object behavior in Gazebo.
           </p>
         </div>
 

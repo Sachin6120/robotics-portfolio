@@ -4,26 +4,26 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 
 const nodes = [
   { label: 'RGB-D Camera', sub: 'Color + depth', icon: Camera },
-  { label: 'Object Localization', sub: 'C++ / OpenCV', icon: Cpu },
-  { label: 'TF2 Transform', sub: 'Camera → world', icon: Waypoints },
-  { label: 'Pregrasp Selection', sub: 'Deterministic IK', icon: ScanLine },
-  { label: 'MoveIt 2', sub: 'Motion planning', icon: Move3d },
-  { label: 'ros2_control', sub: 'Trajectory execution', icon: Radio },
+  { label: 'Object Pose', sub: 'XYZ + axial yaw', icon: Cpu },
+  { label: 'TF2 Transform', sub: 'Perception → world', icon: Waypoints },
+  { label: 'MoveIt 2', sub: 'Configured IK + planning', icon: ScanLine },
+  { label: 'PlanningScene', sub: 'Attach → place → detach', icon: Move3d },
+  { label: 'ros2_control', sub: 'Arm + gripper execution', icon: Radio },
   { label: 'Simulation Evidence', sub: 'Object behavior', icon: CheckCircle2 },
 ]
 
 const features = [
   {
     title: 'Perception',
-    description: 'Color and depth observations are processed to estimate the object\'s position and transform it into the robot\'s world frame.',
+    description: 'Color and depth observations estimate object XYZ and axial yaw; TF2 transforms that perceived pose into the robot\'s world frame. Gazebo ground truth is reserved for evaluation.',
     icon: ScanLine,
     note: 'RGB-D → WORLD TARGET',
   },
   {
-    title: 'Motion Planning',
-    description: 'Candidate pregrasp configurations are evaluated before MoveIt 2 plans the arm motions for approach, lift, transport, and placement.',
+    title: 'Planning + Scene Lifecycle',
+    description: 'MoveIt\'s configured IK supports deterministic pregrasp selection and collision-aware planning. PlanningScene state manages grasp contact, attachment, pickup, payload transport, placement, detach, and retreat.',
     icon: Move3d,
-    note: 'IK + CARTESIAN + OMPL',
+    note: 'MOVEIT IK + CARTESIAN + OMPL',
   },
   {
     title: 'Validation',
@@ -39,9 +39,9 @@ export function SystemArchitecture() {
       <div className="mx-auto flex max-w-7xl flex-col gap-12 px-5 py-20 md:px-8 md:py-24">
         <div className="flex max-w-3xl flex-col gap-4">
           <p className="font-mono text-xs uppercase tracking-[0.18em] text-primary">02 / System architecture</p>
-          <h2 className="text-balance text-3xl font-semibold tracking-tight md:text-5xl">From RGB-D observation to robot execution.</h2>
+          <h2 className="text-balance text-3xl font-semibold tracking-tight md:text-5xl">From RGB-D observation to verified object behavior.</h2>
           <p className="leading-relaxed text-muted-foreground">
-            The pipeline connects perception, coordinate transforms, deterministic target selection, MoveIt 2 planning, and ros2_control execution through ROS 2.
+            The ROS 2 pipeline connects perceived XYZ + axial yaw, TF2 world targeting, MoveIt 2 collision-aware planning, explicit PlanningScene payload management, ros2_control execution, and behavior-based simulation evidence.
           </p>
         </div>
 

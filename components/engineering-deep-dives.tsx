@@ -7,10 +7,10 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 
 const codeLines = [
-  'for seed in candidate_seeds:',
-  '    q = solve_ik(pregrasp_pose, seed)',
-  '    if valid(q) and fk_matches_target(q):',
-  '        candidates.add(q)',
+  'for seed_state in candidate_seeds:',
+  '    solved = moveit_state.setFromIK(group, target, seed_state)',
+  '    if solved and collision_free(moveit_state):',
+  '        candidates.add(moveit_state.joint_values())',
   'return select_deterministic_candidate(candidates)',
 ]
 
@@ -25,6 +25,7 @@ export function EngineeringDeepDives() {
       <Tabs defaultValue="pregrasp" className="gap-6">
         <TabsList variant="line" className="tab-strip h-auto w-full justify-start gap-6 overflow-x-auto overflow-y-hidden border-b pb-2">
           <TabsTrigger value="pregrasp" className="flex-none px-0 py-3">Deterministic Pregrasp</TabsTrigger>
+          <TabsTrigger value="clearance" className="flex-none px-0 py-3">D3 Clearance Correction</TabsTrigger>
           <TabsTrigger value="validation" className="flex-none px-0 py-3">Evidence-Based Validation</TabsTrigger>
         </TabsList>
 
@@ -37,10 +38,10 @@ export function EngineeringDeepDives() {
               </CardHeader>
               <CardContent className="flex flex-col gap-5">
                 <p className="leading-relaxed text-muted-foreground">
-                  The robot can reach the same Cartesian target through multiple joint configurations. The manipulation pipeline evaluates several seeded IK candidates and selects a deterministic pregrasp configuration before executing the Cartesian descent.
+                  The robot can reach the same Cartesian target through multiple joint configurations. The pipeline requests several seeded candidates from MoveIt&apos;s configured IK solver, then selects a deterministic pregrasp before executing the Cartesian descent. This is candidate-selection logic around MoveIt IK, not a handwritten IK solver.
                 </p>
                 <div className="flex flex-wrap gap-2">
-                  <Badge variant="secondary">Multi-seed IK</Badge>
+                  <Badge variant="secondary">Configured MoveIt IK</Badge>
                   <Badge variant="secondary">FK validation</Badge>
                   <Badge variant="secondary">Joint bounds</Badge>
                   <Badge variant="secondary">Deterministic selection</Badge>
@@ -53,7 +54,7 @@ export function EngineeringDeepDives() {
                 <span>Conceptual Selection Pipeline</span>
                 <GitBranch className="size-4" />
               </div>
-              <div className="border-b px-5 py-3 font-mono text-[9px] uppercase tracking-[0.16em] text-primary">Pseudocode — not source</div>
+              <div className="border-b px-5 py-3 font-mono text-[9px] uppercase tracking-[0.16em] text-primary">Conceptual MoveIt API use — not source</div>
               <div className="flex flex-col gap-3 overflow-x-auto p-5 font-mono text-xs leading-relaxed md:p-8 md:text-sm">
                 {codeLines.map((line, index) => (
                   <div key={line} className="flex min-w-max gap-4">
@@ -63,8 +64,56 @@ export function EngineeringDeepDives() {
                 ))}
               </div>
               <div className="border-t p-4 text-xs leading-relaxed text-muted-foreground">
-                Multiple feasible branches are evaluated before motion execution instead of accepting an arbitrary first IK solution.
+                Multiple feasible solutions from MoveIt&apos;s configured kinematics plugin are evaluated before motion execution instead of accepting an arbitrary first result.
               </div>
+            </div>
+          </div>
+        </TabsContent>
+
+        <TabsContent value="clearance">
+          <div className="grid gap-4 lg:grid-cols-2">
+            <Card className="rounded-xl">
+              <CardHeader>
+                <CardTitle className="flex items-center gap-3 text-xl">
+                  <span className="flex size-7 items-center justify-center rounded-full border font-mono text-xs">01</span>
+                  Historical D3 failure
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="flex flex-col gap-5">
+                <p className="leading-relaxed text-muted-foreground">
+                  A 1.5 mm fixed-side clearance was smaller than D3&apos;s governing projection. The predicted margin was approximately −0.0759 mm, and fixed-pad contact occurred during the simulated Cartesian descent.
+                </p>
+                <div className="flex flex-wrap gap-2">
+                  <Badge variant="secondary">1.5 mm clearance</Badge>
+                  <Badge variant="secondary">≈ −0.0759 mm margin</Badge>
+                  <Badge variant="secondary">Fixed-pad contact</Badge>
+                  <Badge variant="secondary">Descent failed</Badge>
+                </div>
+              </CardContent>
+            </Card>
+
+            <Card className="rounded-xl border-primary/40">
+              <CardHeader>
+                <CardTitle className="flex items-center gap-3 text-xl">
+                  <span className="flex size-7 items-center justify-center rounded-full bg-primary text-primary-foreground"><Check className="size-4" /></span>
+                  Evidence-based correction
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="flex flex-col gap-5">
+                <p className="leading-relaxed text-muted-foreground">
+                  Increasing fixed-side clearance to 2.0 mm changed the predicted margin to approximately +0.4241 mm. The corrected run recorded zero pre-close pad contacts, a 1.0000 descent fraction, and a complete D3 PASS.
+                </p>
+                <div className="flex flex-wrap gap-2">
+                  <Badge variant="secondary">2.0 mm clearance</Badge>
+                  <Badge variant="secondary">≈ +0.4241 mm margin</Badge>
+                  <Badge variant="secondary">0 pre-close contacts</Badge>
+                  <Badge variant="secondary">D3 PASS</Badge>
+                </div>
+              </CardContent>
+            </Card>
+
+            <div className="glass-panel top-highlight relative overflow-hidden rounded-xl p-5 text-sm leading-relaxed text-muted-foreground lg:col-span-2 md:p-6">
+              The qualification run measured a D3 placement position error of <span className="font-mono text-primary">1.9793 mm</span>. The change was driven by the clearance model and verified contact evidence, not by controller status alone.
             </div>
           </div>
         </TabsContent>
@@ -94,7 +143,7 @@ export function EngineeringDeepDives() {
               </CardHeader>
               <CardContent className="flex flex-col gap-5">
                 <p className="leading-relaxed text-muted-foreground">
-                  The validation tooling records robot execution and object state so perception accuracy, grasp behavior, lift/transport motion, and placement can be checked quantitatively.
+                  The validation tooling records robot execution and object state so perception accuracy, contacts, grasp behavior, lift/transport motion, and placement can be checked quantitatively. Scene-A and D1–D3 all pass; D3&apos;s qualification placement error is 1.9793 mm.
                 </p>
                 <div className="flex flex-wrap gap-2">
                   {['Object Pose', 'Gripper State', 'Lift Motion', 'Transport Motion', 'Placement Error'].map((label) => (

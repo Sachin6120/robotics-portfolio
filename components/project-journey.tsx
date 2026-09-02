@@ -9,25 +9,25 @@ const chapters = [
   {
     label: 'Foundation',
     title: 'Build a stable manipulation baseline',
-    text: 'Integrate the UR5e, parallel-jaw gripper, MoveIt 2, ros2_control, and Gazebo Harmonic into a complete approach–grasp–lift–transport–place sequence.',
+    text: 'Integrate the simulated UR5e, parallel-jaw gripper, MoveIt 2, ros2_control, and Gazebo Harmonic into a complete grasp–attach–pickup–transport–place–detach–retreat sequence.',
     icon: Route,
   },
   {
     label: 'Perception',
     title: 'Give the manipulation stack visual input',
-    text: 'A custom C++ and OpenCV RGB-D pipeline estimates the object position and transforms the measurement into the robot\'s world frame for manipulation.',
+    text: 'A C++ and OpenCV RGB-D pipeline estimates object XYZ and axial yaw, then TF2 transforms the perceived pose into the robot\'s world frame for manipulation.',
     icon: Camera,
   },
   {
     label: 'Repeatability',
     title: 'Make pregrasp selection deterministic',
-    text: 'Multiple IK candidates are evaluated before execution so repeated targets produce a stable pregrasp configuration and a consistent Cartesian approach.',
+    text: 'Multiple candidates from MoveIt\'s configured IK solver are evaluated before execution so repeated targets produce a stable pregrasp configuration and a consistent Cartesian approach.',
     icon: Crosshair,
   },
   {
     label: 'Validation',
     title: 'Measure what actually happened',
-    text: 'Experiment tooling records perception, trajectory execution, gripper state, object motion, and final placement so results can be evaluated from evidence rather than command completion alone.',
+    text: 'Experiment tooling records perception, trajectory execution, gripper state, object motion, contacts, and final placement across four pose cases so success is based on simulated behavior rather than controller completion alone.',
     icon: ShieldCheck,
   },
 ]
@@ -43,7 +43,7 @@ export function ProjectJourney() {
         <p className="font-mono text-xs uppercase tracking-[0.18em] text-primary">01 / Project journey</p>
         <h2 id="journey-heading" className="text-3xl font-semibold tracking-tight md:text-5xl">From scripted motion to perception-driven manipulation.</h2>
         <p className="max-w-2xl leading-relaxed text-muted-foreground">
-          The project evolved by first establishing a stable manipulation baseline, then replacing configured object information with RGB-D perception, making pregrasp selection repeatable, and validating behavior across changing object positions.
+          The project evolved from a stable simulation baseline to RGB-D-driven XYZ + axial-yaw targeting, repeatable pregrasp selection, explicit payload lifecycle management, and validation across changing planar object poses.
         </p>
       </div>
 

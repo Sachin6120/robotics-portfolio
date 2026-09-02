@@ -1,14 +1,14 @@
 import { Blocks, Bot, Camera, Crosshair, FlaskConical, Gauge, GitBranch, Wrench } from 'lucide-react'
 
 const contributions = [
-  { title: 'Perception', text: 'Custom RGB-D object localization using C++ and OpenCV.', icon: Camera },
+  { title: 'Perception', text: 'RGB-D estimation of object XYZ and axial yaw using C++ and OpenCV.', icon: Camera },
   { title: 'Robot Integration', text: 'UR5e and parallel-jaw gripper simulation integrated with ROS 2 Jazzy and Gazebo Harmonic.', icon: Bot },
-  { title: 'Transforms', text: 'TF2-based camera-to-world target handling for perception-driven manipulation.', icon: GitBranch },
-  { title: 'Motion Planning', text: 'MoveIt 2 integration, deterministic pregrasp selection, Cartesian manipulation, and transport planning.', icon: Crosshair },
+  { title: 'Transforms', text: 'TF2-based perceived-pose transformation into the world frame, with ground truth used only for evaluation.', icon: GitBranch },
+  { title: 'Motion Planning', text: 'Deterministic pregrasp candidate selection through MoveIt\'s configured IK, plus collision-aware and Cartesian planning.', icon: Crosshair },
   { title: 'Control', text: 'ros2_control integration for UR5e trajectory execution and gripper actuation.', icon: Gauge },
-  { title: 'Grasp Modeling', text: 'Parallel-jaw aperture geometry and object-width-aware grasp configuration.', icon: Wrench },
+  { title: 'Scene + Grasp Modeling', text: 'PlanningScene-managed grasp, attachment, pickup, payload transport, placement, detach, and retreat lifecycle.', icon: Wrench },
   { title: 'Experiment Tooling', text: 'Python and shell tooling for controlled runs, logging, regression checks, and evidence preservation.', icon: Blocks },
-  { title: 'Validation', text: 'Quantitative checks for perception error, path execution, object motion, grasp behavior, and final placement.', icon: FlaskConical },
+  { title: 'Validation', text: 'Quantitative checks of actual simulated contacts, object motion, grasp behavior, transport, and final placement—not controller status alone.', icon: FlaskConical },
 ]
 
 export function EngineeringContributions() {
