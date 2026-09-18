@@ -1,12 +1,21 @@
-import { ArrowUpRight, Code2, Mail } from 'lucide-react'
+import { ArrowUpRight } from 'lucide-react'
 
+import { CaseStudyFooter } from '@/components/case-study-footer'
 import { CaseStudyHero } from '@/components/case-study-hero'
 import { DemoVideo } from '@/components/demo-video'
 import { EngineeringContributions } from '@/components/engineering-contributions'
 import { EngineeringDeepDives } from '@/components/engineering-deep-dives'
 import { ProjectJourney } from '@/components/project-journey'
+import { ProjectNav } from '@/components/project-nav'
 import { SystemArchitecture } from '@/components/system-architecture'
-import { Separator } from '@/components/ui/separator'
+
+const navLinks = [
+  { label: 'Demo', href: '#demo', className: 'sm:inline' },
+  { label: 'Architecture', href: '#architecture', className: 'md:inline' },
+  { label: 'Contributions', href: '#contributions', className: 'lg:inline' },
+  { label: 'Deep Dives', href: '#deep-dives', className: 'xl:inline' },
+  { label: 'Validation', href: '#metrics', className: 'sm:inline' },
+]
 
 const metrics = [
   { value: '4', label: 'Validated Pose Cases', detail: 'Scene-A + D1–D3 · all PASS' },
@@ -18,21 +27,7 @@ const metrics = [
 export function RoboticsCaseStudy() {
   return (
     <main className="page-canvas overflow-hidden">
-      <header className="sticky top-0 z-50 border-b bg-background/70 backdrop-blur-xl">
-        <nav className="mx-auto flex h-14 max-w-7xl items-center justify-between px-5 md:px-8" aria-label="Primary navigation">
-          <a href="#top" className="font-mono text-xs font-semibold uppercase tracking-[0.16em]">Sachin Kumar Pal // Robotics</a>
-          <div className="flex items-center gap-4 font-mono text-xs text-muted-foreground md:gap-5">
-            <a href="#demo" className="hidden hover:text-foreground sm:inline">Demo</a>
-            <a href="#architecture" className="hidden hover:text-foreground md:inline">Architecture</a>
-            <a href="#contributions" className="hidden hover:text-foreground lg:inline">Contributions</a>
-            <a href="#deep-dives" className="hidden hover:text-foreground xl:inline">Deep Dives</a>
-            <a href="#metrics" className="hidden hover:text-foreground sm:inline">Validation</a>
-            <a href="https://github.com/Sachin6120/ur5e-robotiq-pickplace" target="_blank" rel="noreferrer" className="flex items-center gap-2 hover:text-foreground">
-              <Code2 className="size-4" />GitHub
-            </a>
-          </div>
-        </nav>
-      </header>
+      <ProjectNav links={navLinks} githubHref="https://github.com/Sachin6120/ur5e-robotiq-pickplace" />
 
       <div id="top" className="scroll-mt-14"><CaseStudyHero /></div>
       <DemoVideo />
@@ -68,39 +63,7 @@ export function RoboticsCaseStudy() {
         </div>
       </section>
 
-      <footer className="mx-auto flex max-w-7xl flex-col gap-10 px-5 py-14 md:px-8 md:py-16">
-        <div className="flex flex-col justify-between gap-10 lg:flex-row lg:items-end">
-          <div className="flex max-w-2xl flex-col gap-3">
-            <p className="font-mono text-xs uppercase tracking-[0.18em] text-primary">Built by Sachin Kumar Pal</p>
-            <h2 className="text-balance text-2xl font-semibold md:text-3xl">Robotics engineering at the intersection of perception, planning, and control.</h2>
-            <div className="mt-2 space-y-1 text-sm leading-relaxed text-muted-foreground">
-              <p className="font-medium text-foreground">Sachin Kumar Pal</p>
-              <p>M.Sc. Mechatronics &amp; Cyber-Physical Systems</p>
-              <p>Deggendorf Institute of Technology</p>
-            </div>
-            <p className="mt-2 font-mono text-[10px] uppercase tracking-[0.13em] text-muted-foreground">
-              Focus: Robotic Manipulation · ROS 2 · Motion Planning · Perception · Automation
-            </p>
-            <div className="mt-3 inline-flex w-fit rounded-full border border-primary/20 bg-primary/5 px-3 py-2 font-mono text-[10px] uppercase tracking-[0.13em] text-primary">
-              Open to Master's Thesis · Working Student · Robotics / Automation Opportunities
-            </div>
-          </div>
-
-          <div className="flex flex-col gap-3 sm:flex-row">
-            <a href="https://github.com/Sachin6120" target="_blank" rel="noreferrer" className="flex items-center gap-2 text-sm hover:text-primary">
-              <Code2 className="size-4" />Sachin6120 <ArrowUpRight className="size-3" />
-            </a>
-            <a href="mailto:sachinkpal612@gmail.com" className="flex items-center gap-2 text-sm hover:text-primary" aria-label="Email Sachin Kumar Pal at sachinkpal612@gmail.com">
-              <Mail className="size-4" />sachinkpal612@gmail.com <ArrowUpRight className="size-3" />
-            </a>
-          </div>
-        </div>
-        <Separator />
-        <div className="flex flex-col justify-between gap-2 font-mono text-[10px] uppercase tracking-wider text-muted-foreground sm:flex-row">
-          <span>UR5e / Parallel-Jaw Manipulation</span>
-          <span>ROS 2 Jazzy · Gazebo Harmonic</span>
-        </div>
-      </footer>
+      <CaseStudyFooter bottomLeft="UR5e / Parallel-Jaw Manipulation" bottomRight="ROS 2 Jazzy · Gazebo Harmonic" />
     </main>
   )
 }

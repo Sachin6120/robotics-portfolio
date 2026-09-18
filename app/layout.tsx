@@ -7,22 +7,24 @@ const geist = Geist({ subsets: ['latin'], variable: '--font-geist-sans' })
 const geistMono = Geist_Mono({ subsets: ['latin'], variable: '--font-geist-mono' })
 
 export const metadata: Metadata = {
-  title: 'Perception-Guided UR5e Simulation | Sachin Kumar Pal',
+  title: 'Sachin Kumar Pal | Robotics & Reinforcement Learning Portfolio',
   description:
-    'Simulation-only UR5e manipulation case study using ROS 2 Jazzy, RGB-D XYZ and axial-yaw estimation, TF2, MoveIt 2, PlanningScene, ros2_control, and Gazebo Harmonic.',
+    'Mechatronics engineer portfolio featuring NVIDIA Isaac Lab reinforcement learning, ROS 2 manipulation, autonomous navigation and simulation-based robotics validation.',
   applicationName: 'Sachin Kumar Pal Robotics Portfolio',
   authors: [{ name: 'Sachin Kumar Pal' }],
   creator: 'Sachin Kumar Pal',
   keywords: [
     'Robotics',
+    'Reinforcement Learning',
+    'NVIDIA Isaac Lab',
     'ROS 2',
     'UR5e',
+    'Unitree G1',
+    'PPO',
+    'Domain Randomization',
     'MoveIt 2',
     'Gazebo Harmonic',
     'Robotic Manipulation',
-    'RGB-D Perception',
-    'ros2_control',
-    'OpenCV',
     'Mechatronics',
   ],
   robots: { index: true, follow: true },
