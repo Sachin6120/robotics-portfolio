@@ -35,6 +35,7 @@
   --ring: #34d399;
   --violet: #8b7cf6;
   --cyan: #22d3ee;
+  --warn: #fbbf24;
   --axis-x: #f4f4f5;
   --axis-y: #34d399;
   --axis-z: #22d3ee;
@@ -93,6 +94,13 @@
   -webkit-background-clip: text;
 }
 .tech-pill { color: var(--primary); background: rgb(52 211 153 / 0.08); border-color: rgb(52 211 153 / 0.2); }
+
+/* Evidence classes — one visual language for how strongly a result is verified. */
+.evidence-live { color: var(--primary); background: rgb(52 211 153 / 0.1); border-color: rgb(52 211 153 / 0.32); }
+.evidence-offline { color: var(--cyan); background: rgb(34 211 238 / 0.1); border-color: rgb(34 211 238 / 0.32); }
+.evidence-analytic { color: var(--violet); background: rgb(139 124 246 / 0.1); border-color: rgb(139 124 246 / 0.32); }
+.evidence-open { color: var(--warn); background: rgb(251 191 36 / 0.1); border-color: rgb(251 191 36 / 0.32); }
+.evidence-none { color: var(--muted-foreground); background: rgb(161 161 170 / 0.08); border-color: rgb(47 48 56 / 0.9); }
 .glass-panel {
   background: rgb(24 24 27 / 0.42);
   border: 1px solid rgb(47 48 56 / 0.8);
