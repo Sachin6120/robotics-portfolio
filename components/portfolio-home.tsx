@@ -1,6 +1,8 @@
 import { ArrowUpRight, Boxes, Code2, Cpu, GraduationCap, Mail, Radar, Route, SlidersHorizontal, Waypoints } from 'lucide-react'
+import Image from 'next/image'
 
 import { CaseStudyFooter } from '@/components/case-study-footer'
+import { CopyEmailButton } from '@/components/copy-email-button'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { additionalProjects, featuredProjects } from '@/lib/projects'
@@ -104,7 +106,7 @@ export function PortfolioHome() {
           Seeking a robotics master&apos;s thesis position
         </div>
         <h1 className="heading-gradient max-w-3xl text-balance font-sans text-4xl font-semibold leading-[1.05] tracking-[-0.04em] md:text-6xl">
-          Robotics &amp; Autonomous Systems — Control, Manipulation, Planning and Robot Learning
+          Robot Control &amp; Autonomous Systems — From Simulation to Measured Results
         </h1>
         <p className="max-w-2xl text-pretty text-base leading-relaxed text-foreground/90 md:text-lg">
           I am Sachin Kumar Pal, an M.Sc. Mechatronics &amp; Cyber-Physical Systems student at Deggendorf Institute
@@ -112,10 +114,10 @@ export function PortfolioHome() {
           planning, autonomous systems, reinforcement learning, perception or humanoid robotics.
         </p>
         <p className="max-w-2xl text-pretty text-sm leading-relaxed text-muted-foreground md:text-base">
-          I build and validate robot control, manipulation, navigation and learning systems in ROS 2, NVIDIA Isaac
-          Sim / Isaac Lab and Gazebo. Every project below is validated in simulation against criteria declared before
-          measurement, and each one states plainly what it did and did not verify. None of this work includes
-          physical-hardware results, and none of it claims any.
+          I develop robot control, manipulation, navigation and learning systems using ROS 2, Isaac Sim / Isaac Lab
+          and Gazebo. The featured work includes a live-verified torque-continuous humanoid controller handoff,
+          four simulation-validated UR5e pose cases, and a controlled G1 disturbance-recovery benchmark.
+          Evidence is labeled by verification scope; none of these projects claims physical-hardware validation.
         </p>
 
         <div className="flex flex-wrap gap-2">
@@ -138,6 +140,7 @@ export function PortfolioHome() {
           >
             <Mail data-icon="inline-start" /> Contact
           </Button>
+          <CopyEmailButton />
           <Button
             size="lg"
             variant="outline"
@@ -176,6 +179,22 @@ export function PortfolioHome() {
                     {project.scope}
                   </p>
                 </div>
+
+                <figure className="overflow-hidden rounded-lg border border-border/70 bg-background/50">
+                  <div className="relative aspect-video w-full overflow-hidden bg-[#090c12]">
+                    <Image
+                      src={project.media.src}
+                      alt={project.media.alt}
+                      fill
+                      sizes="(min-width: 1024px) 45vw, (min-width: 640px) 85vw, 95vw"
+                      className="object-contain"
+                      unoptimized
+                    />
+                  </div>
+                  <figcaption className="border-t border-border/60 px-3 py-2 font-mono text-[11px] leading-relaxed text-muted-foreground">
+                    {project.media.caption}
+                  </figcaption>
+                </figure>
 
                 <div className="flex flex-wrap gap-2">
                   {project.tech.map((item) => (

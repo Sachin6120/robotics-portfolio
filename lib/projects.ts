@@ -3,6 +3,12 @@ export interface ProjectMetric {
   label: string
 }
 
+export interface ProjectMedia {
+  src: string
+  alt: string
+  caption: string
+}
+
 export interface FeaturedProject {
   slug: string
   title: string
@@ -10,6 +16,7 @@ export interface FeaturedProject {
   summary: string
   /** Validation scope, stated on every card so no card implies hardware results. */
   scope: string
+  media: ProjectMedia
   tech: string[]
   metrics: ProjectMetric[]
   /** Internal case-study route, where one exists. */
@@ -35,6 +42,11 @@ export const featuredProjects: FeaturedProject[] = [
     summary:
       'Exchanging authority over a humanoid’s twelve leg joints between a learned locomotion policy and a model-based contact-aware whole-body controller, and loading and unloading contact through it, without publishing a torque command that jumps.',
     scope: 'Simulation only · no hardware · work in progress',
+    media: {
+      src: '/g1-contact/figure_f_live_handoff_continuity.png',
+      alt: 'Measured live controller handoff torque-continuity plot for the Unitree G1',
+      caption: 'Live command-continuity telemetry · NOT live contact reload or touchdown',
+    },
     tech: ['NVIDIA Isaac Sim', 'Isaac Lab', 'Whole-Body Control', 'Hierarchical QP', 'Pinocchio', 'Unitree G1'],
     metrics: [
       { value: '0.8000 N·m', label: 'Worst per-node command step, live — limit ≤ 1.0' },
@@ -50,6 +62,11 @@ export const featuredProjects: FeaturedProject[] = [
     summary:
       'RGB-D object pose estimation, deterministic pregrasp selection and MoveIt 2 motion planning, validated through repeatable simulation experiments across four planar pose cases.',
     scope: 'Simulation only · ROS 2 Jazzy / Gazebo Harmonic',
+    media: {
+      src: '/ur5e-demo-poster.jpg',
+      alt: 'UR5e Gazebo simulation demo poster for perception-guided pick and place',
+      caption: 'UR5e simulation demo · four pose cases validated separately',
+    },
     tech: ['ROS 2 Jazzy', 'Gazebo Harmonic', 'MoveIt 2', 'ros2_control', 'OpenCV', 'TF2'],
     metrics: [
       { value: '4 / 4', label: 'Validated pose cases' },
@@ -65,6 +82,11 @@ export const featuredProjects: FeaturedProject[] = [
     summary:
       'A per-object Kalman tracker propagates moving obstacles forward under a constant-velocity model and paints the predicted occupancy into a custom Nav2 costmap layer, so MPPI plans against where an obstacle will be rather than where it was last seen.',
     scope: 'Simulation only · staged Gazebo validation campaign',
+    media: {
+      src: '/predictive-navigation/predictive_navigation_hero.png',
+      alt: 'Predictive dynamic-obstacle navigation project illustration from its repository',
+      caption: 'Project visualization · measured trial results in source repository',
+    },
     tech: ['ROS 2 Jazzy', 'Nav2', 'MPPI', 'C++', 'Kalman Filter', 'costmap_2d plugin'],
     metrics: [
       { value: '448 trials', label: 'Final robustness pass, 46 condition groups' },
@@ -79,6 +101,11 @@ export const featuredProjects: FeaturedProject[] = [
     summary:
       'Controlled robustness study of a 37-DoF humanoid locomotion policy, comparing a baseline and a domain-randomized PPO checkpoint on a held-out lateral-push benchmark.',
     scope: 'Simulation only · sim-to-real-oriented study, no transfer',
+    media: {
+      src: '/g1/g1_push_1p5_side_by_side.gif',
+      alt: 'Paired simulated Unitree G1 locomotion rollouts: baseline falls and domain-randomized policy recovers under a 1.5 meters per second lateral push',
+      caption: 'ONE paired rollout · aggregate results shown below; no hardware transfer',
+    },
     tech: ['NVIDIA Isaac Lab', 'PPO', 'RSL-RL', 'PyTorch', 'Domain Randomization'],
     metrics: [
       { value: '20,480', label: 'Evaluated episodes, friction + push benchmarks' },

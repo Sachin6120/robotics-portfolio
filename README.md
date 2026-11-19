@@ -1,79 +1,57 @@
-# Sachin Kumar Pal — Robotics Portfolio
+# Sachin Kumar Pal — Robotics Engineering Portfolio
 
-A Next.js case study for the public project **UR5e Perception-Guided Pick-and-Place**.
+A Next.js portfolio showcasing **simulation-validated robotics engineering case studies** across humanoid whole-body control, robot manipulation, predictive navigation and reinforcement learning.
 
-**Stack:** ROS 2 Jazzy · Gazebo Harmonic · MoveIt 2 · ros2_control · C++ · Python · OpenCV · TF2
+**Live website:** https://robotics-portfolio-i4bp9wgvt-sachincena1206-1777.vercel.app
+**GitHub profile:** https://github.com/Sachin6120
 
-Project repository: https://github.com/Sachin6120/ur5e-robotiq-pickplace
+## Featured projects
 
-Stage-2 release: https://github.com/Sachin6120/ur5e-robotiq-pickplace/releases/tag/stage2-pose-generalization-pass
+| Project | Engineering focus | Evidence and scope |
+| --- | --- | --- |
+| [Unitree G1 — Contact-Aware Whole-Body Control](https://github.com/Sachin6120/g1-contact-aware-whole-body-control) | Hierarchical QP, torque-continuous controller handoff, contact transition | Live handoff command step 0.8000 N·m (limit 1.0); 33/33 contact-reload cases **offline**. No qualified live reload or hardware execution. |
+| [UR5e — Perception-Guided Pick & Place](https://github.com/Sachin6120/ur5e-robotiq-pickplace) | RGB-D perception, TF2, MoveIt 2, PlanningScene, ros2_control | Four simulation pose cases passed; worst reported perception error 1.613 mm. |
+| [Predictive Dynamic-Obstacle Navigation](https://github.com/Sachin6120/predictive-dynamic-obstacle-navigation) | Kalman obstacle tracking, Nav2 MPPI, predictive costmap | Repository reports 448 simulated trials across 46 condition groups. |
+| [Unitree G1 — Robust PPO Locomotion](https://github.com/Sachin6120/isaaclab-g1-robust-locomotion) | Isaac Lab, RSL-RL PPO, disturbance robustness | At held-out 1.5 m/s push, baseline fall rate 39.84% versus domain-randomized policy 13.28%, in simulation. |
 
-## Current project scope
+Additional published work includes a [Franka Panda PPO pick-and-lift task](https://github.com/Sachin6120/franka-pick-lift-ppo-isaaclab) and mechanism design projects.
 
-This portfolio represents the published Stage-2 simulation baseline. RGB-D perception estimates object XYZ and axial yaw, TF2 transforms the perceived pose into the world frame, and deterministic pregrasp selection evaluates candidates returned by MoveIt's configured IK. MoveIt 2 provides collision-aware and Cartesian planning, while PlanningScene state explicitly manages grasp, attachment, pickup, payload transport, placement, detach, and retreat.
+## Validation and scientific integrity
 
-Gazebo ground truth is evaluation-only and never a planning input. Validation measures actual simulated object motion, contacts, grasp behavior, transport, and placement rather than treating controller completion as task success. This project does not claim hardware validation, production certification, or formal safety certification.
+Project results are reported within their actual evidence scope. **LIVE VERIFIED** means observed in an executing simulator with measured telemetry; **OFFLINE VERIFIED** is a controller or plant replay without live simulation execution. Analytical results and failed acceptance criteria are distinguished where applicable. No project on this website claims physical-hardware validation.
 
-## Published Stage-2 baseline
+In particular, the G1 controller case study is an **evidence-backed showcase**, not a fully public reproduction package: controller implementation, trained policy parameters and full raw telemetry are not included in the public repository. See its [evidence inventory](https://github.com/Sachin6120/g1-contact-aware-whole-body-control/blob/main/evidence/EVIDENCE_INVENTORY.md) and [limitations](https://github.com/Sachin6120/g1-contact-aware-whole-body-control/blob/main/docs/limitations.md).
 
-| Case | XY offset | Axial yaw | Result |
-|---|---:|---:|:---:|
-| Scene-A | 0, 0 mm | 0° | PASS |
-| D1 | +30, +30 mm | +30° | PASS |
-| D2 | −30, −30 mm | −30° | PASS |
-| D3 | +30, −30 mm | +45° | PASS |
+## Website stack
 
-- Worst validated perception position error: **1.613 mm**
-- Cartesian descent fraction: **1.0000 in all four cases**
-- D3 qualification placement error: **1.9793 mm**
-- Package baseline: **105 tests, 0 failures, 0 errors, 0 skipped**
+Next.js · TypeScript · React · Tailwind CSS · Vercel Analytics. Project technologies include ROS 2 Jazzy, NVIDIA Isaac Sim / Isaac Lab, Gazebo Harmonic, MoveIt 2, Nav2, PyTorch, Pinocchio, C++ and Python.
 
-### D3 clearance correction
-
-The historical 1.5 mm fixed-side clearance produced an approximately −0.0759 mm predicted margin; fixed-pad contact occurred and descent failed. Increasing the clearance to 2.0 mm produced an approximately +0.4241 mm predicted margin, zero pre-close pad contacts, and a complete D3 PASS.
-
-## Run locally
+## Run the website locally
 
 ```bash
 npm install
 npm run dev
 ```
 
-Open `http://localhost:3000`.
-
-## Production check
+For a production build check:
 
 ```bash
 npm run build
 npm start
 ```
 
-Open `http://localhost:3000` again and verify the production build before deploying.
+## Deployment
 
-## Deploy to Vercel
+The `main` branch is connected to Vercel. Pushing updates to `main` triggers an automatic deployment, subject to Vercel build checks. No manual CLI deployment is needed for normal changes.
 
-1. Create a GitHub repository for this portfolio (for example, `robotics-portfolio`).
-2. Push this folder to it.
-3. In Vercel: **Add New → Project → Import Git Repository**.
-4. Keep the framework preset as **Next.js**.
-5. Deploy using the detected defaults.
-6. Add the final Vercel URL to your CV, LinkedIn, and GitHub profile.
+## Before applying
 
+- Verify that project media and links open correctly on mobile and desktop.
+- Link a current CV once the PDF is added to `public/`.
+- Keep quantitative claims synchronized with their evidence repositories.
+- Test Contact and Copy Email from different browsers.
 
-## Final pre-publish checklist
+## Contact
 
-- Run `npm run build` successfully.
-- Check the demo video and poster.
-- Test `View GitHub`, email, and navigation links.
-- Check desktop and mobile layouts (375 / 768 / 1024 / 1440 / 1920 px).
-- Confirm no claims exceed what is supported by the public project repository.
-
-## Recommended CV link label
-
-**Robotics Portfolio — UR5e Perception-Driven Manipulation**
-
-## Recommended CV project entry
-
-**Perception-Guided UR5e Pick-and-Place Simulation | ROS 2, MoveIt 2, Gazebo, C++**
-
-Implemented and integrated an RGB-D XYZ + axial-yaw perception-to-manipulation pipeline with TF2 world targeting, MoveIt-configured deterministic pregrasp selection, collision-aware planning, PlanningScene payload management, ros2_control execution, and quantitative simulation validation across four planar pose cases.
+**Sachin Kumar Pal** — M.Sc. Mechatronics & Cyber-Physical Systems, Deggendorf Institute of Technology.
+Email: sachinkpal612@gmail.com
